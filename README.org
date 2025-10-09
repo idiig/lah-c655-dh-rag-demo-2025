@@ -42,7 +42,7 @@
   	| What he did for the us in the story?
   	| Please answer in English and Japanese.
 #+end_example
-** Three components needed 用意するものは 4 つ
+** Four components needed 用意するものは 4 つ
 1. Database / Knowledge Base データベース/ナレッジベース
    + Data format データ形式
    + Vector store ベクトルストア
