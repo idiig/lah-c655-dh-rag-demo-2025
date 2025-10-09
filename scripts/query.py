@@ -73,7 +73,7 @@ The following passages have been retrieved from the text database based on relev
 """,
             
             document_template="""
-## Passage {index} (ID: {text_id})
+## Context {index} (ID: {text_id})
 
 **Original Text:**
 {original_text}

@@ -1,7 +1,6 @@
 """
 Search Japanese classical text from Neo4j for RAG
-Multi-language vector similarity search
-Supports both command line arguments and stdin
+Multi-language vector similarity search with context window
 """
 
 from neo4j import GraphDatabase
@@ -38,12 +37,42 @@ def extract_keywords(query_text):
     return keywords
 
 
-def comprehensive_search(query_text, top_k=5, min_score=0.2):
-    """Comprehensive search combining all methods with multi-language vector similarity"""
+def get_context_window(text_ids, window_size=10):
+    """Get surrounding context for retrieved text IDs"""
+    with driver.session() as session:
+        result = session.run("""
+            UNWIND $text_ids AS target_id
+            MATCH (w:Work)-[:CONTAINS_TEXT]->(t:Text {id: target_id})
+            MATCH (w)-[:CONTAINS_TEXT]->(context:Text)
+            WHERE context.id >= target_id - $window_size 
+              AND context.id <= target_id + $window_size
+            OPTIONAL MATCH (context)-[:HAS_TRANSLATION]->(tr_zh:Translation {language: 'zh', is_natural: true})
+            OPTIONAL MATCH (context)-[:HAS_TRANSLATION]->(tr_en:Translation {language: 'en', is_natural: true})
+            OPTIONAL MATCH (context)-[:HAS_TRANSLATION]->(tr_ja:Translation {language: 'ja', is_natural: true})
+            
+            RETURN DISTINCT
+                   context.id as text_id,
+                   context.text as text,
+                   context.kana as kana,
+                   context.is_poem as is_poem,
+                   tr_zh.text as translation_zh,
+                   tr_en.text as translation_en,
+                   tr_ja.text as translation_ja,
+                   target_id as matched_id,
+                   CASE WHEN context.id = target_id THEN true ELSE false END as is_matched
+            ORDER BY context.id
+        """, text_ids=text_ids, window_size=window_size)
+        
+        return [dict(record) for record in result]
+
+
+def comprehensive_search(query_text, top_k=5, min_score=0.2, context_window=10):
+    """Comprehensive search with context window"""
     query_embedding = get_embedding(query_text)
     keywords = extract_keywords(query_text)
     
     with driver.session() as session:
+        # First, find the most relevant passages
         result = session.run("""
             WITH $query_embedding AS queryVector, $query_text AS queryText, $keywords AS keywords
             MATCH (w:Work)-[:CONTAINS_TEXT]->(t:Text)
@@ -102,16 +131,7 @@ def comprehensive_search(query_text, top_k=5, min_score=0.2):
             
             WHERE final_score > $min_score
             
-            RETURN w.title as work_title, 
-                   w.author as work_author,
-                   t.id as text_id, 
-                   t.text as text, 
-                   t.kana as kana, 
-                   t.is_poem as is_poem, 
-                   tr_zh.text as translation_zh,
-                   tr_en.text as translation_en,
-                   tr_ja.text as translation_ja,
-                   filtered_words, 
+            RETURN t.id as text_id,
                    vec_score, 
                    keyword_score, 
                    word_score, 
@@ -121,7 +141,97 @@ def comprehensive_search(query_text, top_k=5, min_score=0.2):
         """, query_embedding=query_embedding, query_text=query_text, 
              keywords=keywords, top_k=top_k, min_score=min_score)
         
-        return [dict(record) for record in result]
+        matched_results = [dict(record) for record in result]
+    
+    if not matched_results:
+        return []
+    
+    # Get context window for all matched IDs
+    matched_ids = [r['text_id'] for r in matched_results]
+    context_texts = get_context_window(matched_ids, window_size=context_window)
+    
+    # Organize results in pipeline-compatible format
+    final_results = []
+    for matched in matched_results:
+        matched_id = matched['text_id']
+        
+        # Get all context texts for this match
+        context_window_texts = [ct for ct in context_texts if ct['matched_id'] == matched_id]
+        
+        # Find the matched passage
+        matched_passage = next((ct for ct in context_window_texts if ct['is_matched']), None)
+        
+        if not matched_passage:
+            continue
+        
+        # Build the result entry with context embedded in text
+        context_before = [ct for ct in context_window_texts if ct['text_id'] < matched_id]
+        context_after = [ct for ct in context_window_texts if ct['text_id'] > matched_id]
+        
+        # Construct enriched text with context markers
+        full_text_parts = []
+        
+        # Add context before (last 3)
+        if context_before:
+            for ct in context_before[-3:]:
+                full_text_parts.append(f"[Context ID:{ct['text_id']}] {ct['text']}")
+        
+        # Add matched passage with marker
+        full_text_parts.append(f">>> [MATCHED ID:{matched_id}] {matched_passage['text']} <<<")
+        
+        # Add context after (first 3)
+        if context_after:
+            for ct in context_after[:3]:
+                full_text_parts.append(f"[Context ID:{ct['text_id']}] {ct['text']}")
+        
+        full_text = "\n".join(full_text_parts)
+        
+        # Build enriched translations with context
+        translations_zh = []
+        translations_en = []
+        translations_ja = []
+        
+        for ct in context_before[-3:]:
+            if ct.get('translation_zh'):
+                translations_zh.append(f"[ID:{ct['text_id']}] {ct['translation_zh']}")
+            if ct.get('translation_en'):
+                translations_en.append(f"[ID:{ct['text_id']}] {ct['translation_en']}")
+            if ct.get('translation_ja'):
+                translations_ja.append(f"[ID:{ct['text_id']}] {ct['translation_ja']}")
+        
+        translations_zh.append(f">>> [MATCHED ID:{matched_id}] {matched_passage.get('translation_zh', 'N/A')} <<<")
+        translations_en.append(f">>> [MATCHED ID:{matched_id}] {matched_passage.get('translation_en', 'N/A')} <<<")
+        translations_ja.append(f">>> [MATCHED ID:{matched_id}] {matched_passage.get('translation_ja', 'N/A')} <<<")
+        
+        for ct in context_after[:3]:
+            if ct.get('translation_zh'):
+                translations_zh.append(f"[ID:{ct['text_id']}] {ct['translation_zh']}")
+            if ct.get('translation_en'):
+                translations_en.append(f"[ID:{ct['text_id']}] {ct['translation_en']}")
+            if ct.get('translation_ja'):
+                translations_ja.append(f"[ID:{ct['text_id']}] {ct['translation_ja']}")
+        
+        result_entry = {
+            "text_id": matched_id,
+            "original_text": full_text,
+            "kana": matched_passage['kana'],
+            "is_poem": matched_passage.get('is_poem', False),
+            "translations": {
+                "zh": "\n".join(translations_zh) if translations_zh else None,
+                "en": "\n".join(translations_en) if translations_en else None,
+                "ja": "\n".join(translations_ja) if translations_ja else None
+            },
+            "scores": {
+                "vector": matched['vec_score'],
+                "keyword": matched['keyword_score'],
+                "word": matched['word_score'],
+                "final": matched['final_score']
+            }
+        }
+        
+        final_results.append(result_entry)
+    
+    return final_results
 
 
 def format_context_json(search_results, query_text):
@@ -130,31 +240,8 @@ def format_context_json(search_results, query_text):
     output = {
         "query": query_text,
         "num_results": len(search_results),
-        "results": []
+        "results": search_results
     }
-    
-    for record in search_results:
-        result = {
-            "work_title": record['work_title'],
-            "work_author": record['work_author'],
-            "text_id": record['text_id'],
-            "original_text": record['text'],
-            "kana": record['kana'],
-            "is_poem": record['is_poem'],
-            "translations": {
-                "zh": record.get('translation_zh'),
-                "en": record.get('translation_en'),
-                "ja": record.get('translation_ja')
-            },
-            "words": [w for w in record.get('filtered_words', []) if w.get('word')],
-            "scores": {
-                "vector": record['vec_score'],
-                "keyword": record['keyword_score'],
-                "word": record['word_score'],
-                "final": record['final_score']
-            }
-        }
-        output["results"].append(result)
     
     return json.dumps(output, ensure_ascii=False, indent=2)
 
@@ -163,50 +250,51 @@ def format_context_compact(search_results):
     """Format search results into compact RAG context (for LLM input)"""
     contexts = []
     
-    for idx, record in enumerate(search_results, 1):
-        ctx = f"[{idx}] {record['work_title']}\n"
-        ctx += f"Original: {record['text']}\n"
+    for idx, result in enumerate(search_results, 1):
+        ctx = f"[{idx}] Passage ID: {result['text_id']}\n"
+        ctx += f"\nOriginal:\n{result['original_text']}\n"
         
-        if record.get('translation_zh'):
-            ctx += f"Chinese: {record['translation_zh']}\n"
-        if record.get('translation_en'):
-            ctx += f"English: {record['translation_en']}\n"
-        if record.get('translation_ja'):
-            ctx += f"Japanese: {record['translation_ja']}\n"
+        if result['translations'].get('zh'):
+            ctx += f"\nChinese:\n{result['translations']['zh']}\n"
+        if result['translations'].get('en'):
+            ctx += f"\nEnglish:\n{result['translations']['en']}\n"
         
-        ctx += f"Relevance: {record['final_score']:.3f}"
+        ctx += f"\nRelevance: {result['scores']['final']:.3f}"
         contexts.append(ctx)
     
-    return "\n\n".join(contexts)
+    return "\n\n" + "="*80 + "\n\n".join(contexts)
 
 
 if __name__ == "__main__":
     # Check if reading from stdin
     if not sys.stdin.isatty():
-        # Reading from pipe
         query_text = sys.stdin.read().strip()
         top_k = int(sys.argv[1]) if len(sys.argv) > 1 and sys.argv[1].isdigit() else 5
         output_format = sys.argv[2] if len(sys.argv) > 2 else 'json'
+        context_window = int(sys.argv[3]) if len(sys.argv) > 3 and sys.argv[3].isdigit() else 10
     else:
-        # Reading from command line arguments
         if len(sys.argv) < 2:
-            print("Usage: python search_neo4j.py <query> [top_k] [format]", file=sys.stderr)
-            print("   or: echo <query> | python search_neo4j.py [top_k] [format]", file=sys.stderr)
-            print("\nFormat options: json, compact, text (default: json)", file=sys.stderr)
+            print("Usage: python search_neo4j.py <query> [top_k] [format] [window]", file=sys.stderr)
+            print("   or: echo <query> | python search_neo4j.py [top_k] [format] [window]", file=sys.stderr)
+            print("\nFormat options: json, compact (default: json)", file=sys.stderr)
+            print("Window: context window size (default: 10)", file=sys.stderr)
             sys.exit(1)
         
         query_text = sys.argv[1]
         top_k = 5
-        output_format = 'text'
+        output_format = 'json'
+        context_window = 10
         
-        for arg in sys.argv[2:]:
-            if arg.isdigit():
+        for i, arg in enumerate(sys.argv[2:], 2):
+            if arg.isdigit() and i == 2:
                 top_k = int(arg)
-            elif arg in ['json', 'compact', 'text']:
+            elif arg in ['json', 'compact'] and i == 3:
                 output_format = arg
+            elif arg.isdigit() and i == 4:
+                context_window = int(arg)
     
     try:
-        results = comprehensive_search(query_text, top_k, min_score=0.2)
+        results = comprehensive_search(query_text, top_k, min_score=0.2, context_window=context_window)
         
         if not results:
             if output_format == 'json':
@@ -218,10 +306,6 @@ if __name__ == "__main__":
             if output_format == 'json':
                 print(format_context_json(results, query_text))
             elif output_format == 'compact':
-                print(format_context_compact(results))
-            else:
-                # text format (original detailed format)
-                print(f"=== Search Results for: '{query_text}' ===\n")
                 print(format_context_compact(results))
     except Exception as e:
         print(f"Error: {e}", file=sys.stderr)
