@@ -89,7 +89,6 @@
   echo "What did people do for saying goodbye to us in Tosa Nikki?" | python scripts/context_retrieval.py 3 text
 #+end_src
 
-#+RESULTS:
 #+begin_example
 === Search Results for: 'What did people do for saying goodbye to us in Tosa Nikki?' ===
 
@@ -125,7 +124,6 @@ Relevance: 0.650
   echo "What did people do for saying goodbye to us?" | python scripts/context_retrieval.py 3 json | python scripts/query.py
 #+end_src
 
-#+RESULTS:
 #+begin_example
 {
   "messages": [
@@ -146,7 +144,6 @@ Relevance: 0.650
   echo "What did people do for saying goodbye to us in Tosa Nikki?" | python scripts/context_retrieval.py json | python scripts/query.py | python scripts/answer.py
 #+end_src
 
-#+RESULTS:
 #+begin_example
 In the context of the *Tosa Nikki*, various expressions of farewell and the emotional weight associated with them are depicted through the retrieved passages. The excerpts reveal how characters navigate the complexities of separation and nostalgia, notably during the moment of parting, which is profoundly significant in Heian-era culture.
 
@@ -174,7 +171,6 @@ The Heian period was marked by a rich tradition of using poetry and prose for na
   echo "What did people do for saying goodbye to us in Tosa Nikki?" | python scripts/answer.py 
 #+end_src
 
-#+RESULTS:
 : In "Tosa Nikki," a classic work by the Japanese poet Matsuo Bashō, the author describes various aspects of life during the Edo period, including social customs and human emotions. In this travel journal, particularly in the farewell scenes, people typically engaged in heartfelt goodbyes that included actions and words reflecting their relationships.
 : 
 : Common gestures for saying goodbye included offering gifts, expressing wishes for safe travel, sharing poignant remarks, and sometimes engaging in emotional farewells. These gatherings often involved meals or tea, where friends or family would express their feelings, highlighting the importance of human connections and the transient nature of life. The atmosphere would be reflective, encapsulating feelings of both sadness and gratitude.
