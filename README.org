@@ -293,3 +293,5 @@ See [[https://gist.github.com/idiig/fe53fa5a2da150bdbe4ae0da7e86873c][this Gist]
 5. *Prompt* engineering *プロンプト* の工夫
 6. Use what kind of *LLM* for generating answers? 回答生成にどのような
    *LLM* を使うか？
+7. Packaging and deployment パッケージングとデプロイ
+8. Application ideas 応用アイデア
