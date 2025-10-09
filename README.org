@@ -5,7 +5,7 @@
 - Basic framework of RAG RAGの基本的な枠組み
 - Discuss the selection of your data データの選択について議論する
 * What is RAG (Retrieval-Augmented Generation)? RAGとは？
-** Hallucination 幻覚
+** LLM's Hallucination 言語モデルの幻覚
 #+begin_src plantuml
   +----------+     +--------+
   | Question |---->| Answer |
@@ -29,7 +29,6 @@
                          |
                    +----------------+
                    |    Database /  |
-  		 | Knowledge Base |
                    |   (documents)  |
                    +----------------+
 #+end_src
