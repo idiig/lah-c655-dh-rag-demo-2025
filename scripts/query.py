@@ -210,9 +210,6 @@ def main():
     if output_format == 'json':
         # Output as JSON for API calls
         output = {
-            "model": "claude-sonnet-4.5",
-            "max_tokens": 4096,
-            "temperature": 0.7,
             "messages": [
                 {"role": "system", "content": prompt["system"]},
                 {"role": "user", "content": prompt["user"]}

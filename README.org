@@ -28,7 +28,8 @@
                          ^
                          |
                    +----------------+
-  		 |    Database /  |
+                   |    Database /  |
+  		 | Knowledge Base |
                    |   (documents)  |
                    +----------------+
 #+end_src
@@ -85,10 +86,34 @@
    クスを使ったキーワード検索
 3. Hybrid search ハイブリッド検索
 #+begin_src shell :results output
-  echo "What did people do for saying goodbye to us?" | python scripts/context_retrieval.py text
+  echo "What did people do for saying goodbye to us in Tosa Nikki?" | python scripts/context_retrieval.py 3 text
 #+end_src
 
 #+RESULTS:
+#+begin_example
+=== Search Results for: 'What did people do for saying goodbye to us in Tosa Nikki?' ===
+
+[1] 土佐日記
+Original: 守のたちの人々の中にこの來る人々ぞ心あるやうにはいはれほのめく。
+Chinese: 在国守邸的人里面，听说这些特意前来的人是有诚意的，这点确实也看得出来。
+English: Among the people serving the governor, these visitors are the ones considered to have sincerity, and it seems faintly so.
+Japanese: 国司の人々の中で、この来た人たちこそ、心あるように言われていて、そんなふうにも見える。
+Relevance: 0.706
+
+[2] 土佐日記
+Original: 年ごろよく具しつる人々なむわかれ難く思ひてその日頻にとかくしつゝのゝしるうちに夜更けぬ。
+Chinese: 长年亲密相伴的人们感到难舍难分，离别的那天，他们整日都在忙碌着这般，谈笑着那般，谈笑间夜色已深。
+English: Those who had been close for years found it hard to say goodbye, and as they chatted and bustled about that day, night quietly crept up on them.
+Japanese: 長年親しくしてきた人たちは、別れるのがつらくて、その日もしきりにあれこれ話しながら賑やかに過ごしているうちに、夜が更けてしまった。
+Relevance: 0.650
+
+[3] 土佐日記
+Original: かく別れ難くいひて、かの人々の口網ももろもちにてこの海邊にて荷ひいだせる歌、
+Chinese: 就这样，他们说着难以分离，像是一起扛着渔网般，协力在这海边作出一首和歌。
+English: As they said it was hard to part, the people carried their fishing net together and composed a poem by the seaside.
+Japanese: こうして別れがたいと言いながら、あの人たちは口網を皆で担いで、この浜辺で歌を詠んだのだった。
+Relevance: 0.650
+#+end_example
 
 ** Prompt プロンプト
 - Query 質問文
@@ -96,5 +121,62 @@
 - Retrieved context from source 検索で得られたコンテキスト
 - Instruction 回答の指示
 - etc
+#+begin_src shell :results output
+  echo "What did people do for saying goodbye to us?" | python scripts/context_retrieval.py 3 json | python scripts/query.py
+#+end_src
+
+#+RESULTS:
+#+begin_example
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a specialist in classical Japanese literature, with expertise in analyzing texts from the Heian period (794-1185 CE). Your knowledge includes:\n- Classical Japanese language (文語/bungo) grammar and vocabulary\n- Historical and cultural context of the period\n- Literary conventions and poetic forms\n- Comparative analysis across translations\n\nYou provide accurate, balanced analysis based on textual evidence."
+    },
+    {
+      "role": "user",
+      "content": "# Retrieved Context\n\nThe following passages have been retrieved from the text database based on relevance to the query:\n\n## Passage 1 (ID: 38)\n\n**Original Text:**\n守のたちの人々の中にこの來る人々ぞ心あるやうにはいはれほのめく。\n\n**Reading:**\nかみのたちのひとびとのなかにこのきたるひとびとぞこころあるやうにはいはれほのめく。\n\n**Type:** Prose\n\n**Chinese Translation:**\n在国守邸的人里面，听说这些特意前来的人是有诚意的，这点确实也看得出来。\n\n**English Translation:**\nAmong the people serving the governor, these visitors are the ones considered to have sincerity, and it seems faintly so.\n\n**Modern Japanese Translation:**\n国司の人々の中で、この来た人たちこそ、心あるように言われていて、そんなふうにも見える。\n\n**Relevance Score:** 0.717\n\n---\n\n## Passage 2 (ID: 6)\n\n**Original Text:**\n年ごろよく具しつる人々なむわかれ難く思ひてその日頻にとかくしつゝのゝしるうちに夜更けぬ。\n\n**Reading:**\nとしごろよくぐしつるひとびとなむわかれがたくおもひてそのひしきりにとかくしつつののしるうちによふけぬ。\n\n**Type:** Prose\n\n**Chinese Translation:**\n长年亲密相伴的人们感到难舍难分，离别的那天，他们整日都在忙碌着这般，谈笑着那般，谈笑间夜色已深。\n\n**English Translation:**\nThose who had been close for years found it hard to say goodbye, and as they chatted and bustled about that day, night quietly crept up on them.\n\n**Modern Japanese Translation:**\n長年親しくしてきた人たちは、別れるのがつらくて、その日もしきりにあれこれ話しながら賑やかに過ごしているうちに、夜が更けてしまった。\n\n**Relevance Score:** 0.670\n\n---\n\n## Passage 3 (ID: 39)\n\n**Original Text:**\nかく別れ難くいひて、かの人々の口網ももろもちにてこの海邊にて荷ひいだせる歌、\n\n**Reading:**\nかくわかれがたくいひて、かのひとびとくちあみもろもちにてこのうみべにてになひいだせるうた、\n\n**Type:** Prose\n\n**Chinese Translation:**\n就这样，他们说着难以分离，像是一起扛着渔网般，协力在这海边作出一首和歌。\n\n**English Translation:**\nAs they said it was hard to part, the people carried their fishing net together and composed a poem by the seaside.\n\n**Modern Japanese Translation:**\nこうして別れがたいと言いながら、あの人たちは口網を皆で担いで、この浜辺で歌を詠んだのだった。\n\n**Relevance Score:** 0.662\n\n---\n\n# End of Retrieved Context\n\n# Instructions\n\n- Answer based on the retrieved passages above\n- Cite specific passages when making claims (e.g., 'Passage 1 states...')\n- Analyze the original text when relevant\n- Provide historical or cultural context if helpful\n- Compare translations if there are interesting differences\n- If the passages don't contain enough information, state what is known and what is unclear\n# Query\n\nWhat did people do for saying goodbye to us?"
+    }
+  ]
+}
+#+end_example
 
 ** Answer generation 回答の生成
+#+begin_src shell :results output
+  echo "What did people do for saying goodbye to us in Tosa Nikki?" | python scripts/context_retrieval.py json | python scripts/query.py | python scripts/answer.py
+#+end_src
+
+#+RESULTS:
+#+begin_example
+In the context of the *Tosa Nikki*, various expressions of farewell and the emotional weight associated with them are depicted through the retrieved passages. The excerpts reveal how characters navigate the complexities of separation and nostalgia, notably during the moment of parting, which is profoundly significant in Heian-era culture.
+
+### Farewell Practices in *Tosa Nikki*
+
+1. **Socializing and Reminiscing**:
+   In *Passage 2*, there's an emphasis on the moments leading up to goodbye, illustrating that those who had been close for years felt a strong sense of attachment: "Those who had been close for years found it hard to say goodbye, and as they chatted and bustled about that day, night quietly crept up on them." This suggests that farewells were laden with shared memories and the bittersweet nature of leaving, indicative of the emotional bonds formed.
+
+2. **Collective Expression Through Poetry**:
+   ,*Passage 3* portrays a communal aspect of farewells. As the group expresses their reluctance to part, they band together to create a poem by the seaside while carrying their fishing net: "As they said it was hard to part, the people carried their fishing net together and composed a poem by the seaside." This not only underscores a cultural tradition of poetry but also highlights how such expressions served as both a form of catharsis and a means to commemorate their time together.
+
+3. **Artistic and Scenic Settings**:
+   In *Passage 4*, there’s a moment of wonderment as individuals ask, "Where are we?" upon reaching a scenic harbor. The act of appreciating their surroundings as part of the farewell process reflects the Heian cultural value placed on nature and beauty, which often accompanied significant emotional events. It hints at a broader tendency in Heian literature to blend personal experiences with aesthetic appreciation.
+
+4. **Unexpected Encounters**:
+   ,*Passage 5* introduces an intriguing narrative detail, as the story mentions a woman who once lived in Tosa and now finds herself on the same boat: "Once upon a time, a woman who had lived in a place called Tosa happened to be on board this boat." This suggests that farewells can also intertwine with unexpected reunions or the evocation of past connections, emphasizing the complexity of relationships in moments of transition.
+
+### Cultural Context
+
+The Heian period was marked by a rich tradition of using poetry and prose for navigating personal emotions and relationships. The practice of composing poems during farewells is emblematic of
+#+end_example
+
+*** Without retrieval 検索なしの場合
+#+begin_src shell :results output
+  echo "What did people do for saying goodbye to us in Tosa Nikki?" | python scripts/answer.py 
+#+end_src
+
+#+RESULTS:
+: In "Tosa Nikki," a classic work by the Japanese poet Matsuo Bashō, the author describes various aspects of life during the Edo period, including social customs and human emotions. In this travel journal, particularly in the farewell scenes, people typically engaged in heartfelt goodbyes that included actions and words reflecting their relationships.
+: 
+: Common gestures for saying goodbye included offering gifts, expressing wishes for safe travel, sharing poignant remarks, and sometimes engaging in emotional farewells. These gatherings often involved meals or tea, where friends or family would express their feelings, highlighting the importance of human connections and the transient nature of life. The atmosphere would be reflective, encapsulating feelings of both sadness and gratitude.
+: 
+: If you have specific passages or contexts in mind, I can provide a more detailed analysis!
