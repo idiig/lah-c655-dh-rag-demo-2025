@@ -1,0 +1,76 @@
+#+title: RAG for humanities quick DEMO
+#+author: Xudong Chen, Hilofumi Yamamoto
+#+date: 2025:10:10
+* Introduction はじめに
+- Basic framework of RAG RAGの基本的な枠組み
+- Discuss the selection of your data データの選択について議論する
+* What is RAG (Retrieval-Augmented Generation)? RAGとは？
+** Hallucination 幻覚
+#+begin_src plantuml
+  +----------+     +--------+
+  |          |     |        |
+  | Question +---->+ Answer |
+  |          |     |        |
+  +----------+     +--------+
+#+end_src
+
+#+begin_example
+  Example Qustion:
+  	| In Tosa Nikki (土佐日記),
+  	| Who is Masatsura?
+  	| What he did for the us in the story?
+  	| Please answer in English and Japanese.
+#+end_example
+** Solution 解決策
+#+begin_src plantuml 
+  +----------+     +-------------+     +-------------+     +---------+
+  | Question |---->| Retrieval   |---->|   Context   |---->| Answer  |
+  |          |     |  (search)   |     |(Docs merged)|     |(LLM Gen)|
+  +----------+     +-------------+     +-------------+     +---------+
+                         ^
+                         |
+                   +----------------+
+                   |    Database /  |
+  		 | Knowledge Base |
+                   |   (documents)  |
+                   +----------------+
+#+end_src
+
+#+begin_example
+  Retrieved Context (from Tosa Nikki):
+  	| Masatsura contributes sake and fine goods.
+  Qustion:
+  	| In Tosa Nikki (土佐日記),
+  	| Who is Masatsura?
+  	| What he did for the us in the story?
+  	| Please answer in English and Japanese.
+#+end_example
+** Three components needed 用意するものは 3 つ
+1. Database / Knowledge Base データベース/ナレッジベース
+   + Data format データ形式
+   + Vector store ベクトルストア
+2. Retrieval system 検索システム
+   + Embedding model 埋め込みモデル
+   + Search algorithm 検索アルゴリズム
+3. Language model for generation 生成のための言語モデル
+** Note 注意点
+- Because we are users, we just need to choose existing ones. 使う側な
+  ので、既存のものを選ぶだけ
+- Differences with ChatGPT's web search function ChatGPTのウェブ検索機
+  能との違い
+  + More flexible and customizable より柔軟でカスタマイズ可能
+  + Can use private data プライベートデータを使用可能
+  + More control over the retrieval and generation process 検索と生成
+    プロセスの制御が可能
+* Examples よい例たち
+- [[https://humanitext.ai/apps/antiqua/][Humanitext Antiqua]] ::
+  Conversation with Western Classics 西洋古典哲学に関する質問
+- [[https://humanitext.ai/apps/aozora/][Humanitext Aozora]] ::
+  Conversation with Aozora Bunko 青空文庫のテキストに関する質問
+- [[https://cosx.org/2024/10/reading-man-vs-ai/][Human reading vs. AI reading (in Chinese)]] ::
+  Let AI read /The Gay Genius: The Life and Times of Su Tungpo/ and ask
+  AI about the poet Su Tungpo's relationships in Song Dynasty
+  China『蘇東坡伝』をAIに読み込ませて中国・宋の詩人蘇東坡の人間関係を
+  AIに聞く
+* Demo デモ
+** Data preparation データ準備
