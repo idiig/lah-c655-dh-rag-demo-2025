@@ -8,9 +8,7 @@
 ** Hallucination 幻覚
 #+begin_src plantuml
   +----------+     +--------+
-  |          |     |        |
-  | Question +---->+ Answer |
-  |          |     |        |
+  | Question |---->| Answer |
   +----------+     +--------+
 #+end_src
 
@@ -74,3 +72,30 @@
   AIに聞く
 * Demo デモ
 ** Data preparation データ準備
+- JSON data from Tosa Nikki and translations 土佐日記と翻訳のJSONデータ
+** Knowledge base construction ナレッジベース構築 
+- Neo4j :: Database with graph structure グラフ構造のデータベース
+  + [[https://neo4j.com/][Neo4j official site]] 
+#+begin_src shell :results output
+  python scripts/knowledgebase.py data/tosa-translation/tosa.json
+#+end_src
+** Retrieval methods 検索方法
+1. Vector search using cosine similarity with sentence-transformers
+   sentence-transformersを使ったベクトル検索
+2. Keyword search using Neo4j's full-text index Neo4jの全文検索インデッ
+   クスを使ったキーワード検索
+3. Hybrid search ハイブリッド検索
+#+begin_src shell :results output
+  echo "What did people do for saying goodbye to us?" | python scripts/context_retrieval.py text
+#+end_src
+
+#+RESULTS:
+
+** Prompt プロンプト
+- Query 質問文
+- Overall description of the materials 材料に関する全体的な説明
+- Retrieved context from source 検索で得られたコンテキスト
+- Instruction 回答の指示
+- etc
+
+** Answer generation 回答の生成

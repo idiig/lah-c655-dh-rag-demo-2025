@@ -1,1 +1,19 @@
 /.emacs-lsp-paths
+
+# Devenv
+.devenv*
+devenv.local.nix
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml
+/params/api-keys/anthropic
+/params/api-keys/gemini
+/params/api-keys/mistral
+/params/api-keys/openai
+/params/api-keys/voyage
+/params/neo4j/password
+/params/neo4j/uri
+/params/neo4j/username
