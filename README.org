@@ -42,14 +42,18 @@
   	| What he did for the us in the story?
   	| Please answer in English and Japanese.
 #+end_example
-** Three components needed 用意するものは 3 つ
+** Three components needed 用意するものは 4 つ
 1. Database / Knowledge Base データベース/ナレッジベース
    + Data format データ形式
    + Vector store ベクトルストア
+   + Graph database グラフデータベース
 2. Retrieval system 検索システム
    + Embedding model 埋め込みモデル
    + Search algorithm 検索アルゴリズム
-3. Language model for generation 生成のための言語モデル
+3. Prompt プロンプトのテンプレート
+4. Language model for generation 生成のための言語モデル
+   + API-based model APIベースのモデル
+   + Local model ローカルモデル
 ** Note 注意点
 - Because we are users, we just need to choose existing ones. 使う側な
   ので、既存のものを選ぶだけ
