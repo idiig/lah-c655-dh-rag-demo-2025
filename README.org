@@ -28,8 +28,7 @@
                          ^
                          |
                    +----------------+
-                   |    Database /  |
-  		 | Knowledge Base |
+  		 |    Database /  |
                    |   (documents)  |
                    +----------------+
 #+end_src
