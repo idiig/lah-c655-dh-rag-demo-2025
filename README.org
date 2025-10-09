@@ -73,6 +73,7 @@
 * Demo デモ
 ** Data preparation データ準備
 - JSON data from Tosa Nikki and translations 土佐日記と翻訳のJSONデータ
+  + [[../data/tosa-translation/tosa.json][Data source]]
 ** Knowledge base construction ナレッジベース構築 
 - Neo4j :: Database with graph structure グラフ構造のデータベース
   + [[https://neo4j.com/][Neo4j official site]] 
@@ -214,7 +215,8 @@ Relevance: 0.650
 }
 #+end_example
 
-** Answer generation 回答の生成
+** Answer generation with =gpt-4o-mini= =gpt-4o-mini= を用いた回答の生成
+
 #+begin_src shell :results output
   echo "What did people do for saying goodbye to us in Tosa Nikki?" \
       | python scripts/context_retrieval.py 3 json \
@@ -278,3 +280,13 @@ In the Tosa Nikki (土佐日記), specifically in the context retrieved regardin
 
 ** Alternative DEMO using LangChain LangChainを使った別のデモ
 See [[https://gist.github.com/idiig/fe53fa5a2da150bdbe4ae0da7e86873c][this Gist]] for details.
+** Discussion 議論
+1. Use what kind of *data*? どのような *データ* を使うか？
+2. Use what kind of searchable vector/graph *database*? どのような検索可
+   能な *データベースサービス* を使うか？
+3. Use what kind of *embedding model*? どのような *埋め込みモデル* を使う
+   か？
+4. Use what kind of *retrieval strategy*? どのような *検索方法* を使うか？
+5. *Prompt* engineering *プロンプト* の工夫
+6. Use what kind of *LLM* for generating answers? 回答生成にどのような
+   *LLM* を使うか？
