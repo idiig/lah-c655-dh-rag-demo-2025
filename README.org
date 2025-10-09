@@ -76,7 +76,7 @@
 * Demo デモ
 ** Data preparation データ準備
 - JSON data from Tosa Nikki and translations 土佐日記と翻訳のJSONデータ
-  + [[../data/tosa-translation/tosa.json][Data source]]
+  + [[https://github.com/idiig/tosa-translation/blob/caa751c633fb9fa046fb7f695a0a13a77ba5b60a/tosa.json][Data source]]
 ** Knowledge base construction ナレッジベース構築 
 - Neo4j :: Database with graph structure グラフ構造のデータベース
   + [[https://neo4j.com/][Neo4j official site]] 
