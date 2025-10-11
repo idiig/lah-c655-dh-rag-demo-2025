@@ -80,7 +80,7 @@
 ** Knowledge base construction ナレッジベース構築 
 - Neo4j :: Database with graph structure グラフ構造のデータベース
   + [[https://neo4j.com/][Neo4j official site]] 
-#+begin_src shell :results output
+#+begin_src shell 
   python scripts/knowledgebase.py data/tosa-translation/tosa.json
 #+end_src
 ** Retrieval methods 検索方法
@@ -97,98 +97,99 @@
 #+begin_example
 
 
-================================================================================[1] Passage ID: 38
+  ================================================================================
+  [1] Passage ID: 38
 
-Original:
-[Context ID:35] 又、或時には、
-[Context ID:36] あるものと/忘れつゝなほ/なき人を/いづらと問ふぞ/悲しかりける
-[Context ID:37] といひける間に鹿兒の崎といふ所に守のはらからまたことひとこれかれ酒なにど持て追ひきて、磯におり居て別れ難きことをいふ。
->>> [MATCHED ID:38] 守のたちの人々の中にこの來る人々ぞ心あるやうにはいはれほのめく。 <<<
-[Context ID:39] かく別れ難くいひて、かの人々の口網ももろもちにてこの海邊にて荷ひいだせる歌、
-[Context ID:40] をしと思ふ/人やとまると/あし鴨の/うち群れてこそ/我はきにけれ
-[Context ID:41] といひてありければ、いといたく愛でゝ行く人のよめりける、
+  Original:
+  [Context ID:35] 又、或時には、
+  [Context ID:36] あるものと/忘れつゝなほ/なき人を/いづらと問ふぞ/悲しかりける
+  [Context ID:37] といひける間に鹿兒の崎といふ所に守のはらからまたことひとこれかれ酒なにど持て追ひきて、磯におり居て別れ難きことをいふ。
+  >>> [MATCHED ID:38] 守のたちの人々の中にこの來る人々ぞ心あるやうにはいはれほのめく。 <<<
+  [Context ID:39] かく別れ難くいひて、かの人々の口網ももろもちにてこの海邊にて荷ひいだせる歌、
+  [Context ID:40] をしと思ふ/人やとまると/あし鴨の/うち群れてこそ/我はきにけれ
+  [Context ID:41] といひてありければ、いといたく愛でゝ行く人のよめりける、
 
-Chinese:
-[ID:35] 又有时，
-[ID:36] “以为她还在，忘记了她已经不在了，竟然还会问她在哪里。这是多么悲伤。”
-[ID:37] 在这么说着的时候，在一个叫做鹿儿之崎的地方，国守的同胞和其他人都带着酒之类的东西追了上来。他们走下来坐在海边，说着分离之难。
->>> [MATCHED ID:38] 在国守邸的人里面，听说这些特意前来的人是有诚意的，这点确实也看得出来。 <<<
-[ID:39] 就这样，他们说着难以分离，像是一起扛着渔网般，协力在这海边作出一首和歌。
-[ID:40] “感到惜别的人都留在此地了吗，就像芦鸭聚集在一起一样？我已来到这里了啊。”
-[ID:41] 听他这么咏道，品味着这首和歌离去的人又咏了一曲。
+  Chinese:
+  [ID:35] 又有时，
+  [ID:36] “以为她还在，忘记了她已经不在了，竟然还会问她在哪里。这是多么悲伤。”
+  [ID:37] 在这么说着的时候，在一个叫做鹿儿之崎的地方，国守的同胞和其他人都带着酒之类的东西追了上来。他们走下来坐在海边，说着分离之难。
+  >>> [MATCHED ID:38] 在国守邸的人里面，听说这些特意前来的人是有诚意的，这点确实也看得出来。 <<<
+  [ID:39] 就这样，他们说着难以分离，像是一起扛着渔网般，协力在这海边作出一首和歌。
+  [ID:40] “感到惜别的人都留在此地了吗，就像芦鸭聚集在一起一样？我已来到这里了啊。”
+  [ID:41] 听他这么咏道，品味着这首和歌离去的人又咏了一曲。
 
-English:
-[ID:35] Also, at times,
-[ID:36] Even as I forget and think she's still here, I find myself asking, 'Where is she?'—and that is what breaks my heart.
-[ID:37] While they were still speaking, at a place called Kago no Saki, the governor's brothers and some others came after them with sake and such, sat down on the shore, and spoke of how hard it was to part.
->>> [MATCHED ID:38] Among the people serving the governor, these visitors are the ones considered to have sincerity, and it seems faintly so. <<<
-[ID:39] As they said it was hard to part, the people carried their fishing net together and composed a poem by the seaside.
-[ID:40] I wonder if anyone who cares for me would have stayed behind. Like the wild ducks flocking together, I too have come all the way here.
-[ID:41] Because it was said, the person, praising it greatly, composed a poem as they left.
+  English:
+  [ID:35] Also, at times,
+  [ID:36] Even as I forget and think she's still here, I find myself asking, 'Where is she?'—and that is what breaks my heart.
+  [ID:37] While they were still speaking, at a place called Kago no Saki, the governor's brothers and some others came after them with sake and such, sat down on the shore, and spoke of how hard it was to part.
+  >>> [MATCHED ID:38] Among the people serving the governor, these visitors are the ones considered to have sincerity, and it seems faintly so. <<<
+  [ID:39] As they said it was hard to part, the people carried their fishing net together and composed a poem by the seaside.
+  [ID:40] I wonder if anyone who cares for me would have stayed behind. Like the wild ducks flocking together, I too have come all the way here.
+  [ID:41] Because it was said, the person, praising it greatly, composed a poem as they left.
 
-Relevance: 0.706
+  Relevance: 0.706
 
-[2] Passage ID: 6
+  [2] Passage ID: 6
 
-Original:
-[Context ID:3] そのよしいさゝかものにかきつく。
-[Context ID:4] ある人縣の四年五年はてゝ例のことゞも皆しをへて、解由など取りて住むたちより出でゝ船に乘るべき所へわたる。
-[Context ID:5] かれこれ知る知らぬおくりす。
->>> [MATCHED ID:6] 年ごろよく具しつる人々なむわかれ難く思ひてその日頻にとかくしつゝのゝしるうちに夜更けぬ。 <<<
-[Context ID:7] 廿二日、和泉の國までとたひらかにねがひたつ。
-[Context ID:8] 藤原の言實船路なれど馬の餞す。
-[Context ID:9] 上中下ながら醉ひ過ぎていと怪しくしほ海のほとりにてあざれあへり。
+  Original:
+  [Context ID:3] そのよしいさゝかものにかきつく。
+  [Context ID:4] ある人縣の四年五年はてゝ例のことゞも皆しをへて、解由など取りて住むたちより出でゝ船に乘るべき所へわたる。
+  [Context ID:5] かれこれ知る知らぬおくりす。
+  >>> [MATCHED ID:6] 年ごろよく具しつる人々なむわかれ難く思ひてその日頻にとかくしつゝのゝしるうちに夜更けぬ。 <<<
+  [Context ID:7] 廿二日、和泉の國までとたひらかにねがひたつ。
+  [Context ID:8] 藤原の言實船路なれど馬の餞す。
+  [Context ID:9] 上中下ながら醉ひ過ぎていと怪しくしほ海のほとりにてあざれあへり。
 
-Chinese:
-[ID:3] 我在这里写下当时的一些琐事。
-[ID:4] 有一个人，他作为地方官的任期的第四、第五年结束了，他做完所有的例行公事，拿到了解由状，于是从住处出发，前往规定乘船的地方。
-[ID:5] 这个人，那个人，认识的，不认识的，都来为他送行。
->>> [MATCHED ID:6] 长年亲密相伴的人们感到难舍难分，离别的那天，他们整日都在忙碌着这般，谈笑着那般，谈笑间夜色已深。 <<<
-[ID:7] 二十二日，我们进行了祈福仪式，祈愿能平安抵达和泉之地。
-[ID:8] 虽然我们走的是海路，藤原言实却为我们操办了名为“马饯”的饯行宴会。
-[ID:9] 不论阶级高下，所有人都醉过了头，十分古怪地在海岸边嬉闹着。
+  Chinese:
+  [ID:3] 我在这里写下当时的一些琐事。
+  [ID:4] 有一个人，他作为地方官的任期的第四、第五年结束了，他做完所有的例行公事，拿到了解由状，于是从住处出发，前往规定乘船的地方。
+  [ID:5] 这个人，那个人，认识的，不认识的，都来为他送行。
+  >>> [MATCHED ID:6] 长年亲密相伴的人们感到难舍难分，离别的那天，他们整日都在忙碌着这般，谈笑着那般，谈笑间夜色已深。 <<<
+  [ID:7] 二十二日，我们进行了祈福仪式，祈愿能平安抵达和泉之地。
+  [ID:8] 虽然我们走的是海路，藤原言实却为我们操办了名为“马饯”的饯行宴会。
+  [ID:9] 不论阶级高下，所有人都醉过了头，十分古怪地在海岸边嬉闹着。
 
-English:
-[ID:3] I jotted down a little about the matter.
-[ID:4] A certain person, having completed his four- or five-year term as governor, finished all the customary ceremonies, received the geyu document, and left his residence to head to the place where he would board the ship.
-[ID:5] Everyone — friends, strangers, all kinds of people — came to see him off.
->>> [MATCHED ID:6] Those who had been close for years found it hard to say goodbye, and as they chatted and bustled about that day, night quietly crept up on them. <<<
-[ID:7] On the twenty-second day, I prayed for a safe journey as far as Izumi Province.
-[ID:8] Fujiwara no Tokizane sent off a farewell gift called 'Uma no Hanamuke' (horse nose heading)—even though it was a sea voyage. Go figure.
-[ID:9] People of all ranks got drunk and were playfully fooling around by the salty seaside.
+  English:
+  [ID:3] I jotted down a little about the matter.
+  [ID:4] A certain person, having completed his four- or five-year term as governor, finished all the customary ceremonies, received the geyu document, and left his residence to head to the place where he would board the ship.
+  [ID:5] Everyone — friends, strangers, all kinds of people — came to see him off.
+  >>> [MATCHED ID:6] Those who had been close for years found it hard to say goodbye, and as they chatted and bustled about that day, night quietly crept up on them. <<<
+  [ID:7] On the twenty-second day, I prayed for a safe journey as far as Izumi Province.
+  [ID:8] Fujiwara no Tokizane sent off a farewell gift called 'Uma no Hanamuke' (horse nose heading)—even though it was a sea voyage. Go figure.
+  [ID:9] People of all ranks got drunk and were playfully fooling around by the salty seaside.
 
-Relevance: 0.650
+  Relevance: 0.650
 
-[3] Passage ID: 39
+  [3] Passage ID: 39
 
-Original:
-[Context ID:36] あるものと/忘れつゝなほ/なき人を/いづらと問ふぞ/悲しかりける
-[Context ID:37] といひける間に鹿兒の崎といふ所に守のはらからまたことひとこれかれ酒なにど持て追ひきて、磯におり居て別れ難きことをいふ。
-[Context ID:38] 守のたちの人々の中にこの來る人々ぞ心あるやうにはいはれほのめく。
->>> [MATCHED ID:39] かく別れ難くいひて、かの人々の口網ももろもちにてこの海邊にて荷ひいだせる歌、 <<<
-[Context ID:40] をしと思ふ/人やとまると/あし鴨の/うち群れてこそ/我はきにけれ
-[Context ID:41] といひてありければ、いといたく愛でゝ行く人のよめりける、
-[Context ID:42] 棹させど/底ひも知らぬ/わたつみの/ふかきこゝろを/君に見るかな
+  Original:
+  [Context ID:36] あるものと/忘れつゝなほ/なき人を/いづらと問ふぞ/悲しかりける
+  [Context ID:37] といひける間に鹿兒の崎といふ所に守のはらからまたことひとこれかれ酒なにど持て追ひきて、磯におり居て別れ難きことをいふ。
+  [Context ID:38] 守のたちの人々の中にこの來る人々ぞ心あるやうにはいはれほのめく。
+  >>> [MATCHED ID:39] かく別れ難くいひて、かの人々の口網ももろもちにてこの海邊にて荷ひいだせる歌、 <<<
+  [Context ID:40] をしと思ふ/人やとまると/あし鴨の/うち群れてこそ/我はきにけれ
+  [Context ID:41] といひてありければ、いといたく愛でゝ行く人のよめりける、
+  [Context ID:42] 棹させど/底ひも知らぬ/わたつみの/ふかきこゝろを/君に見るかな
 
-Chinese:
-[ID:36] “以为她还在，忘记了她已经不在了，竟然还会问她在哪里。这是多么悲伤。”
-[ID:37] 在这么说着的时候，在一个叫做鹿儿之崎的地方，国守的同胞和其他人都带着酒之类的东西追了上来。他们走下来坐在海边，说着分离之难。
-[ID:38] 在国守邸的人里面，听说这些特意前来的人是有诚意的，这点确实也看得出来。
->>> [MATCHED ID:39] 就这样，他们说着难以分离，像是一起扛着渔网般，协力在这海边作出一首和歌。 <<<
-[ID:40] “感到惜别的人都留在此地了吗，就像芦鸭聚集在一起一样？我已来到这里了啊。”
-[ID:41] 听他这么咏道，品味着这首和歌离去的人又咏了一曲。
-[ID:42] “即使撑着桨，也看不见像深不见底的大海般的深不可测的您的心。”
+  Chinese:
+  [ID:36] “以为她还在，忘记了她已经不在了，竟然还会问她在哪里。这是多么悲伤。”
+  [ID:37] 在这么说着的时候，在一个叫做鹿儿之崎的地方，国守的同胞和其他人都带着酒之类的东西追了上来。他们走下来坐在海边，说着分离之难。
+  [ID:38] 在国守邸的人里面，听说这些特意前来的人是有诚意的，这点确实也看得出来。
+  >>> [MATCHED ID:39] 就这样，他们说着难以分离，像是一起扛着渔网般，协力在这海边作出一首和歌。 <<<
+  [ID:40] “感到惜别的人都留在此地了吗，就像芦鸭聚集在一起一样？我已来到这里了啊。”
+  [ID:41] 听他这么咏道，品味着这首和歌离去的人又咏了一曲。
+  [ID:42] “即使撑着桨，也看不见像深不见底的大海般的深不可测的您的心。”
 
-English:
-[ID:36] Even as I forget and think she's still here, I find myself asking, 'Where is she?'—and that is what breaks my heart.
-[ID:37] While they were still speaking, at a place called Kago no Saki, the governor's brothers and some others came after them with sake and such, sat down on the shore, and spoke of how hard it was to part.
-[ID:38] Among the people serving the governor, these visitors are the ones considered to have sincerity, and it seems faintly so.
->>> [MATCHED ID:39] As they said it was hard to part, the people carried their fishing net together and composed a poem by the seaside. <<<
-[ID:40] I wonder if anyone who cares for me would have stayed behind. Like the wild ducks flocking together, I too have come all the way here.
-[ID:41] Because it was said, the person, praising it greatly, composed a poem as they left.
-[ID:42] Even though I try to probe, I see in you a deep heart like the sea, whose bottom I cannot know.
+  English:
+  [ID:36] Even as I forget and think she's still here, I find myself asking, 'Where is she?'—and that is what breaks my heart.
+  [ID:37] While they were still speaking, at a place called Kago no Saki, the governor's brothers and some others came after them with sake and such, sat down on the shore, and spoke of how hard it was to part.
+  [ID:38] Among the people serving the governor, these visitors are the ones considered to have sincerity, and it seems faintly so.
+  >>> [MATCHED ID:39] As they said it was hard to part, the people carried their fishing net together and composed a poem by the seaside. <<<
+  [ID:40] I wonder if anyone who cares for me would have stayed behind. Like the wild ducks flocking together, I too have come all the way here.
+  [ID:41] Because it was said, the person, praising it greatly, composed a poem as they left.
+  [ID:42] Even though I try to probe, I see in you a deep heart like the sea, whose bottom I cannot know.
 
-Relevance: 0.650
+  Relevance: 0.650
 #+end_example
 
 ** Prompt プロンプト
@@ -204,18 +205,18 @@ Relevance: 0.650
 #+end_src
 
 #+begin_example
-{
-  "messages": [
-    {
-      "role": "system",
-      "content": "You are a specialist in classical Japanese literature, with expertise in analyzing texts from the Heian period (794-1185 CE). Your knowledge includes:\n- Classical Japanese language (文語/bungo) grammar and vocabulary\n- Historical and cultural context of the period\n- Literary conventions and poetic forms\n- Comparative analysis across translations\n\nYou provide accurate, balanced analysis based on textual evidence."
-    },
-    {
-      "role": "user",
-      "content": "# Retrieved Context\n\nThe following passages have been retrieved from the text database based on relevance to the query:\n\n## Context 1 (ID: 38)\n\n**Original Text:**\n[Context ID:35] 又、或時には、\n[Context ID:36] あるものと/忘れつゝなほ/なき人を/いづらと問ふぞ/悲しかりける\n[Context ID:37] といひける間に鹿兒の崎といふ所に守のはらからまたことひとこれかれ酒なにど持て追ひきて、磯におり居て別れ難きことをいふ。\n>>> [MATCHED ID:38] 守のたちの人々の中にこの來る人々ぞ心あるやうにはいはれほのめく。 <<<\n[Context ID:39] かく別れ難くいひて、かの人々の口網ももろもちにてこの海邊にて荷ひいだせる歌、\n[Context ID:40] をしと思ふ/人やとまると/あし鴨の/うち群れてこそ/我はきにけれ\n[Context ID:41] といひてありければ、いといたく愛でゝ行く人のよめりける、\n\n**Reading:**\nかみのたちのひとびとのなかにこのきたるひとびとぞこころあるやうにはいはれほのめく。\n\n**Type:** Prose\n\n**Chinese Translation:**\n[ID:35] 又有时，\n[ID:36] “以为她还在，忘记了她已经不在了，竟然还会问她在哪里。这是多么悲伤。”\n[ID:37] 在这么说着的时候，在一个叫做鹿儿之崎的地方，国守的同胞和其他人都带着酒之类的东西追了上来。他们走下来坐在海边，说着分离之难。\n>>> [MATCHED ID:38] 在国守邸的人里面，听说这些特意前来的人是有诚意的，这点确实也看得出来。 <<<\n[ID:39] 就这样，他们说着难以分离，像是一起扛着渔网般，协力在这海边作出一首和歌。\n[ID:40] “感到惜别的人都留在此地了吗，就像芦鸭聚集在一起一样？我已来到这里了啊。”\n[ID:41] 听他这么咏道，品味着这首和歌离去的人又咏了一曲。\n\n**English Translation:**\n[ID:35] Also, at times,\n[ID:36] Even as I forget and think she's still here, I find myself asking, 'Where is she?'—and that is what breaks my heart.\n[ID:37] While they were still speaking, at a place called Kago no Saki, the governor's brothers and some others came after them with sake and such, sat down on the shore, and spoke of how hard it was to part.\n>>> [MATCHED ID:38] Among the people serving the governor, these visitors are the ones considered to have sincerity, and it seems faintly so. <<<\n[ID:39] As they said it was hard to part, the people carried their fishing net together and composed a poem by the seaside.\n[ID:40] I wonder if anyone who cares for me would have stayed behind. Like the wild ducks flocking together, I too have come all the way here.\n[ID:41] Because it was said, the person, praising it greatly, composed a poem as they left.\n\n**Modern Japanese Translation:**\n[ID:35] また、ある時には、\n[ID:36] いると思い、忘れかけても、いない人に「どこにいるの？」と尋ねてしまう、そのことが、何よりも悲しかった。\n[ID:37] そうこう言っているうちに、鹿児の崎というところで、守の兄弟や、それに他の人たちもあれこれ、酒などを持って追いかけてきて、磯に降りて腰を下ろし、別れがつらいということを語るのだった。\n>>> [MATCHED ID:38] 国司の人々の中で、この来た人たちこそ、心あるように言われていて、そんなふうにも見える。 <<<\n[ID:39] こうして別れがたいと言いながら、あの人たちは口網を皆で担いで、この浜辺で歌を詠んだのだった。\n[ID:40] 私を惜しいと思って留まってくれる人がいるのだろうか。葦鴨が群れるように、私はここまで来てしまったのだ。\n[ID:41] そう言っていたので、大いに褒めながら立ち去る人が詠んだのは、\n\n**Relevance Score:** 0.717\n\n---\n\n## Context 2 (ID: 6)\n\n**Original Text:**\n[Context ID:3] そのよしいさゝかものにかきつく。\n[Context ID:4] ある人縣の四年五年はてゝ例のことゞも皆しをへて、解由など取りて住むたちより出でゝ船に乘るべき所へわたる。\n[Context ID:5] かれこれ知る知らぬおくりす。\n>>> [MATCHED ID:6] 年ごろよく具しつる人々なむわかれ難く思ひてその日頻にとかくしつゝのゝしるうちに夜更けぬ。 <<<\n[Context ID:7] 廿二日、和泉の國までとたひらかにねがひたつ。\n[Context ID:8] 藤原の言實船路なれど馬の餞す。\n[Context ID:9] 上中下ながら醉ひ過ぎていと怪しくしほ海のほとりにてあざれあへり。\n\n**Reading:**\nとしごろよくぐしつるひとびとなむわかれがたくおもひてそのひしきりにとかくしつつののしるうちによふけぬ。\n\n**Type:** Prose\n\n**Chinese Translation:**\n[ID:3] 我在这里写下当时的一些琐事。\n[ID:4] 有一个人，他作为地方官的任期的第四、第五年结束了，他做完所有的例行公事，拿到了解由状，于是从住处出发，前往规定乘船的地方。\n[ID:5] 这个人，那个人，认识的，不认识的，都来为他送行。\n>>> [MATCHED ID:6] 长年亲密相伴的人们感到难舍难分，离别的那天，他们整日都在忙碌着这般，谈笑着那般，谈笑间夜色已深。 <<<\n[ID:7] 二十二日，我们进行了祈福仪式，祈愿能平安抵达和泉之地。\n[ID:8] 虽然我们走的是海路，藤原言实却为我们操办了名为“马饯”的饯行宴会。\n[ID:9] 不论阶级高下，所有人都醉过了头，十分古怪地在海岸边嬉闹着。\n\n**English Translation:**\n[ID:3] I jotted down a little about the matter.\n[ID:4] A certain person, having completed his four- or five-year term as governor, finished all the customary ceremonies, received the geyu document, and left his residence to head to the place where he would board the ship.\n[ID:5] Everyone — friends, strangers, all kinds of people — came to see him off.\n>>> [MATCHED ID:6] Those who had been close for years found it hard to say goodbye, and as they chatted and bustled about that day, night quietly crept up on them. <<<\n[ID:7] On the twenty-second day, I prayed for a safe journey as far as Izumi Province.\n[ID:8] Fujiwara no Tokizane sent off a farewell gift called 'Uma no Hanamuke' (horse nose heading)—even though it was a sea voyage. Go figure.\n[ID:9] People of all ranks got drunk and were playfully fooling around by the salty seaside.\n\n**Modern Japanese Translation:**\n[ID:3] そのことを少し書き記しておいた。\n[ID:4] ある人が国司として四、五年の任期を終え、すべての儀式を済ませ、解由状を受け取って、住まいを出て船に乗る場所へ向かった。\n[ID:5] あの人、この人、知っている人も知らない人も、みんなで見送った。\n>>> [MATCHED ID:6] 長年親しくしてきた人たちは、別れるのがつらくて、その日もしきりにあれこれ話しながら賑やかに過ごしているうちに、夜が更けてしまった。 <<<\n[ID:7] 二十二日、和泉の国まで無事に行けるようにと祈願した。\n[ID:8] 藤原の言實が、船の旅なのに、馬の餞別を贈った。\n[ID:9] 身分の上下を問わず、皆が酔いつぶれて、潮の香る浜辺でふざけ合っていた。\n\n**Relevance Score:** 0.670\n\n---\n\n## Context 3 (ID: 39)\n\n**Original Text:**\n[Context ID:36] あるものと/忘れつゝなほ/なき人を/いづらと問ふぞ/悲しかりける\n[Context ID:37] といひける間に鹿兒の崎といふ所に守のはらからまたことひとこれかれ酒なにど持て追ひきて、磯におり居て別れ難きことをいふ。\n[Context ID:38] 守のたちの人々の中にこの來る人々ぞ心あるやうにはいはれほのめく。\n>>> [MATCHED ID:39] かく別れ難くいひて、かの人々の口網ももろもちにてこの海邊にて荷ひいだせる歌、 <<<\n[Context ID:40] をしと思ふ/人やとまると/あし鴨の/うち群れてこそ/我はきにけれ\n[Context ID:41] といひてありければ、いといたく愛でゝ行く人のよめりける、\n[Context ID:42] 棹させど/底ひも知らぬ/わたつみの/ふかきこゝろを/君に見るかな\n\n**Reading:**\nかくわかれがたくいひて、かのひとびとくちあみもろもちにてこのうみべにてになひいだせるうた、\n\n**Type:** Prose\n\n**Chinese Translation:**\n[ID:36] “以为她还在，忘记了她已经不在了，竟然还会问她在哪里。这是多么悲伤。”\n[ID:37] 在这么说着的时候，在一个叫做鹿儿之崎的地方，国守的同胞和其他人都带着酒之类的东西追了上来。他们走下来坐在海边，说着分离之难。\n[ID:38] 在国守邸的人里面，听说这些特意前来的人是有诚意的，这点确实也看得出来。\n>>> [MATCHED ID:39] 就这样，他们说着难以分离，像是一起扛着渔网般，协力在这海边作出一首和歌。 <<<\n[ID:40] “感到惜别的人都留在此地了吗，就像芦鸭聚集在一起一样？我已来到这里了啊。”\n[ID:41] 听他这么咏道，品味着这首和歌离去的人又咏了一曲。\n[ID:42] “即使撑着桨，也看不见像深不见底的大海般的深不可测的您的心。”\n\n**English Translation:**\n[ID:36] Even as I forget and think she's still here, I find myself asking, 'Where is she?'—and that is what breaks my heart.\n[ID:37] While they were still speaking, at a place called Kago no Saki, the governor's brothers and some others came after them with sake and such, sat down on the shore, and spoke of how hard it was to part.\n[ID:38] Among the people serving the governor, these visitors are the ones considered to have sincerity, and it seems faintly so.\n>>> [MATCHED ID:39] As they said it was hard to part, the people carried their fishing net together and composed a poem by the seaside. <<<\n[ID:40] I wonder if anyone who cares for me would have stayed behind. Like the wild ducks flocking together, I too have come all the way here.\n[ID:41] Because it was said, the person, praising it greatly, composed a poem as they left.\n[ID:42] Even though I try to probe, I see in you a deep heart like the sea, whose bottom I cannot know.\n\n**Modern Japanese Translation:**\n[ID:36] いると思い、忘れかけても、いない人に「どこにいるの？」と尋ねてしまう、そのことが、何よりも悲しかった。\n[ID:37] そうこう言っているうちに、鹿児の崎というところで、守の兄弟や、それに他の人たちもあれこれ、酒などを持って追いかけてきて、磯に降りて腰を下ろし、別れがつらいということを語るのだった。\n[ID:38] 国司の人々の中で、この来た人たちこそ、心あるように言われていて、そんなふうにも見える。\n>>> [MATCHED ID:39] こうして別れがたいと言いながら、あの人たちは口網を皆で担いで、この浜辺で歌を詠んだのだった。 <<<\n[ID:40] 私を惜しいと思って留まってくれる人がいるのだろうか。葦鴨が群れるように、私はここまで来てしまったのだ。\n[ID:41] そう言っていたので、大いに褒めながら立ち去る人が詠んだのは、\n[ID:42] 棹をさしてもなお、底すら知れない海のような、あなたの深い心を見たのです。\n\n**Relevance Score:** 0.662\n\n---\n\n# End of Retrieved Context\n\n# Instructions\n\n- Answer based on the retrieved passages above\n- Cite specific passages when making claims (e.g., 'Passage 1 states...')\n- Analyze the original text when relevant\n- Provide historical or cultural context if helpful\n- Compare translations if there are interesting differences\n- If the passages don't contain enough information, state what is known and what is unclear\n# Query\n\nWhat did people do for saying goodbye to us?"
-    }
-  ]
-}
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a specialist in classical Japanese literature, with expertise in analyzing texts from the Heian period (794-1185 CE). Your knowledge includes:\n- Classical Japanese language (文語/bungo) grammar and vocabulary\n- Historical and cultural context of the period\n- Literary conventions and poetic forms\n- Comparative analysis across translations\n\nYou provide accurate, balanced analysis based on textual evidence."
+      },
+      {
+        "role": "user",
+        "content": "# Retrieved Context\n\nThe following passages have been retrieved from the text database based on relevance to the query:\n\n## Context 1 (ID: 38)\n\n**Original Text:**\n[Context ID:35] 又、或時には、\n[Context ID:36] あるものと/忘れつゝなほ/なき人を/いづらと問ふぞ/悲しかりける\n[Context ID:37] といひける間に鹿兒の崎といふ所に守のはらからまたことひとこれかれ酒なにど持て追ひきて、磯におり居て別れ難きことをいふ。\n>>> [MATCHED ID:38] 守のたちの人々の中にこの來る人々ぞ心あるやうにはいはれほのめく。 <<<\n[Context ID:39] かく別れ難くいひて、かの人々の口網ももろもちにてこの海邊にて荷ひいだせる歌、\n[Context ID:40] をしと思ふ/人やとまると/あし鴨の/うち群れてこそ/我はきにけれ\n[Context ID:41] といひてありければ、いといたく愛でゝ行く人のよめりける、\n\n**Reading:**\nかみのたちのひとびとのなかにこのきたるひとびとぞこころあるやうにはいはれほのめく。\n\n**Type:** Prose\n\n**Chinese Translation:**\n[ID:35] 又有时，\n[ID:36] “以为她还在，忘记了她已经不在了，竟然还会问她在哪里。这是多么悲伤。”\n[ID:37] 在这么说着的时候，在一个叫做鹿儿之崎的地方，国守的同胞和其他人都带着酒之类的东西追了上来。他们走下来坐在海边，说着分离之难。\n>>> [MATCHED ID:38] 在国守邸的人里面，听说这些特意前来的人是有诚意的，这点确实也看得出来。 <<<\n[ID:39] 就这样，他们说着难以分离，像是一起扛着渔网般，协力在这海边作出一首和歌。\n[ID:40] “感到惜别的人都留在此地了吗，就像芦鸭聚集在一起一样？我已来到这里了啊。”\n[ID:41] 听他这么咏道，品味着这首和歌离去的人又咏了一曲。\n\n**English Translation:**\n[ID:35] Also, at times,\n[ID:36] Even as I forget and think she's still here, I find myself asking, 'Where is she?'—and that is what breaks my heart.\n[ID:37] While they were still speaking, at a place called Kago no Saki, the governor's brothers and some others came after them with sake and such, sat down on the shore, and spoke of how hard it was to part.\n>>> [MATCHED ID:38] Among the people serving the governor, these visitors are the ones considered to have sincerity, and it seems faintly so. <<<\n[ID:39] As they said it was hard to part, the people carried their fishing net together and composed a poem by the seaside.\n[ID:40] I wonder if anyone who cares for me would have stayed behind. Like the wild ducks flocking together, I too have come all the way here.\n[ID:41] Because it was said, the person, praising it greatly, composed a poem as they left.\n\n**Modern Japanese Translation:**\n[ID:35] また、ある時には、\n[ID:36] いると思い、忘れかけても、いない人に「どこにいるの？」と尋ねてしまう、そのことが、何よりも悲しかった。\n[ID:37] そうこう言っているうちに、鹿児の崎というところで、守の兄弟や、それに他の人たちもあれこれ、酒などを持って追いかけてきて、磯に降りて腰を下ろし、別れがつらいということを語るのだった。\n>>> [MATCHED ID:38] 国司の人々の中で、この来た人たちこそ、心あるように言われていて、そんなふうにも見える。 <<<\n[ID:39] こうして別れがたいと言いながら、あの人たちは口網を皆で担いで、この浜辺で歌を詠んだのだった。\n[ID:40] 私を惜しいと思って留まってくれる人がいるのだろうか。葦鴨が群れるように、私はここまで来てしまったのだ。\n[ID:41] そう言っていたので、大いに褒めながら立ち去る人が詠んだのは、\n\n**Relevance Score:** 0.717\n\n---\n\n## Context 2 (ID: 6)\n\n**Original Text:**\n[Context ID:3] そのよしいさゝかものにかきつく。\n[Context ID:4] ある人縣の四年五年はてゝ例のことゞも皆しをへて、解由など取りて住むたちより出でゝ船に乘るべき所へわたる。\n[Context ID:5] かれこれ知る知らぬおくりす。\n>>> [MATCHED ID:6] 年ごろよく具しつる人々なむわかれ難く思ひてその日頻にとかくしつゝのゝしるうちに夜更けぬ。 <<<\n[Context ID:7] 廿二日、和泉の國までとたひらかにねがひたつ。\n[Context ID:8] 藤原の言實船路なれど馬の餞す。\n[Context ID:9] 上中下ながら醉ひ過ぎていと怪しくしほ海のほとりにてあざれあへり。\n\n**Reading:**\nとしごろよくぐしつるひとびとなむわかれがたくおもひてそのひしきりにとかくしつつののしるうちによふけぬ。\n\n**Type:** Prose\n\n**Chinese Translation:**\n[ID:3] 我在这里写下当时的一些琐事。\n[ID:4] 有一个人，他作为地方官的任期的第四、第五年结束了，他做完所有的例行公事，拿到了解由状，于是从住处出发，前往规定乘船的地方。\n[ID:5] 这个人，那个人，认识的，不认识的，都来为他送行。\n>>> [MATCHED ID:6] 长年亲密相伴的人们感到难舍难分，离别的那天，他们整日都在忙碌着这般，谈笑着那般，谈笑间夜色已深。 <<<\n[ID:7] 二十二日，我们进行了祈福仪式，祈愿能平安抵达和泉之地。\n[ID:8] 虽然我们走的是海路，藤原言实却为我们操办了名为“马饯”的饯行宴会。\n[ID:9] 不论阶级高下，所有人都醉过了头，十分古怪地在海岸边嬉闹着。\n\n**English Translation:**\n[ID:3] I jotted down a little about the matter.\n[ID:4] A certain person, having completed his four- or five-year term as governor, finished all the customary ceremonies, received the geyu document, and left his residence to head to the place where he would board the ship.\n[ID:5] Everyone — friends, strangers, all kinds of people — came to see him off.\n>>> [MATCHED ID:6] Those who had been close for years found it hard to say goodbye, and as they chatted and bustled about that day, night quietly crept up on them. <<<\n[ID:7] On the twenty-second day, I prayed for a safe journey as far as Izumi Province.\n[ID:8] Fujiwara no Tokizane sent off a farewell gift called 'Uma no Hanamuke' (horse nose heading)—even though it was a sea voyage. Go figure.\n[ID:9] People of all ranks got drunk and were playfully fooling around by the salty seaside.\n\n**Modern Japanese Translation:**\n[ID:3] そのことを少し書き記しておいた。\n[ID:4] ある人が国司として四、五年の任期を終え、すべての儀式を済ませ、解由状を受け取って、住まいを出て船に乗る場所へ向かった。\n[ID:5] あの人、この人、知っている人も知らない人も、みんなで見送った。\n>>> [MATCHED ID:6] 長年親しくしてきた人たちは、別れるのがつらくて、その日もしきりにあれこれ話しながら賑やかに過ごしているうちに、夜が更けてしまった。 <<<\n[ID:7] 二十二日、和泉の国まで無事に行けるようにと祈願した。\n[ID:8] 藤原の言實が、船の旅なのに、馬の餞別を贈った。\n[ID:9] 身分の上下を問わず、皆が酔いつぶれて、潮の香る浜辺でふざけ合っていた。\n\n**Relevance Score:** 0.670\n\n---\n\n## Context 3 (ID: 39)\n\n**Original Text:**\n[Context ID:36] あるものと/忘れつゝなほ/なき人を/いづらと問ふぞ/悲しかりける\n[Context ID:37] といひける間に鹿兒の崎といふ所に守のはらからまたことひとこれかれ酒なにど持て追ひきて、磯におり居て別れ難きことをいふ。\n[Context ID:38] 守のたちの人々の中にこの來る人々ぞ心あるやうにはいはれほのめく。\n>>> [MATCHED ID:39] かく別れ難くいひて、かの人々の口網ももろもちにてこの海邊にて荷ひいだせる歌、 <<<\n[Context ID:40] をしと思ふ/人やとまると/あし鴨の/うち群れてこそ/我はきにけれ\n[Context ID:41] といひてありければ、いといたく愛でゝ行く人のよめりける、\n[Context ID:42] 棹させど/底ひも知らぬ/わたつみの/ふかきこゝろを/君に見るかな\n\n**Reading:**\nかくわかれがたくいひて、かのひとびとくちあみもろもちにてこのうみべにてになひいだせるうた、\n\n**Type:** Prose\n\n**Chinese Translation:**\n[ID:36] “以为她还在，忘记了她已经不在了，竟然还会问她在哪里。这是多么悲伤。”\n[ID:37] 在这么说着的时候，在一个叫做鹿儿之崎的地方，国守的同胞和其他人都带着酒之类的东西追了上来。他们走下来坐在海边，说着分离之难。\n[ID:38] 在国守邸的人里面，听说这些特意前来的人是有诚意的，这点确实也看得出来。\n>>> [MATCHED ID:39] 就这样，他们说着难以分离，像是一起扛着渔网般，协力在这海边作出一首和歌。 <<<\n[ID:40] “感到惜别的人都留在此地了吗，就像芦鸭聚集在一起一样？我已来到这里了啊。”\n[ID:41] 听他这么咏道，品味着这首和歌离去的人又咏了一曲。\n[ID:42] “即使撑着桨，也看不见像深不见底的大海般的深不可测的您的心。”\n\n**English Translation:**\n[ID:36] Even as I forget and think she's still here, I find myself asking, 'Where is she?'—and that is what breaks my heart.\n[ID:37] While they were still speaking, at a place called Kago no Saki, the governor's brothers and some others came after them with sake and such, sat down on the shore, and spoke of how hard it was to part.\n[ID:38] Among the people serving the governor, these visitors are the ones considered to have sincerity, and it seems faintly so.\n>>> [MATCHED ID:39] As they said it was hard to part, the people carried their fishing net together and composed a poem by the seaside. <<<\n[ID:40] I wonder if anyone who cares for me would have stayed behind. Like the wild ducks flocking together, I too have come all the way here.\n[ID:41] Because it was said, the person, praising it greatly, composed a poem as they left.\n[ID:42] Even though I try to probe, I see in you a deep heart like the sea, whose bottom I cannot know.\n\n**Modern Japanese Translation:**\n[ID:36] いると思い、忘れかけても、いない人に「どこにいるの？」と尋ねてしまう、そのことが、何よりも悲しかった。\n[ID:37] そうこう言っているうちに、鹿児の崎というところで、守の兄弟や、それに他の人たちもあれこれ、酒などを持って追いかけてきて、磯に降りて腰を下ろし、別れがつらいということを語るのだった。\n[ID:38] 国司の人々の中で、この来た人たちこそ、心あるように言われていて、そんなふうにも見える。\n>>> [MATCHED ID:39] こうして別れがたいと言いながら、あの人たちは口網を皆で担いで、この浜辺で歌を詠んだのだった。 <<<\n[ID:40] 私を惜しいと思って留まってくれる人がいるのだろうか。葦鴨が群れるように、私はここまで来てしまったのだ。\n[ID:41] そう言っていたので、大いに褒めながら立ち去る人が詠んだのは、\n[ID:42] 棹をさしてもなお、底すら知れない海のような、あなたの深い心を見たのです。\n\n**Relevance Score:** 0.662\n\n---\n\n# End of Retrieved Context\n\n# Instructions\n\n- Answer based on the retrieved passages above\n- Cite specific passages when making claims (e.g., 'Passage 1 states...')\n- Analyze the original text when relevant\n- Provide historical or cultural context if helpful\n- Compare translations if there are interesting differences\n- If the passages don't contain enough information, state what is known and what is unclear\n# Query\n\nWhat did people do for saying goodbye to us?"
+      }
+    ]
+  }
 #+end_example
 
 ** Answer generation with =gpt-4o-mini= =gpt-4o-mini= を用いた回答の生成
@@ -228,23 +229,17 @@ Relevance: 0.650
 #+end_src
 
 #+begin_example
-In the Tosa Nikki (土佐日記), specifically in the context retrieved regarding farewells, we find descriptions of the emotional and social rituals associated with parting. The passages highlight how friends and acquaintances came together to bid farewell to a departing person, emphasizing the sadness and difficulty of separation.
+  In the Tosa Nikki (土佐日記), specifically in the context retrieved regarding farewells, we find descriptions of the emotional and social rituals associated with parting. The passages highlight how friends and acquaintances came together to bid farewell to a departing person, emphasizing the sadness and difficulty of separation.
 
-### Analysis of Farewell Rituals
+  ### Analysis of Farewell Rituals
 
-1. **Emotional Weight of Farewells**:
-   In Context 2 (ID: 6), it describes how those who had been close for many years found it "hard to say goodbye." The atmosphere suggests that as they engaged in conversation and reminisced on their shared experiences, the day passed quickly without them noticing, indicating a deep emotional connection among the group. This emotional turmoil is common in Heian literature, where the sentiments of love and loss are profoundly expressed. 
+  1. **Emotional Weight of Farewells**:
+     In Context 2 (ID: 6), it describes how those who had been close for many years found it "hard to say goodbye." The atmosphere suggests that as they engaged in conversation and reminisced on their shared experiences, the day passed quickly without them noticing, indicating a deep emotional connection among the group. This emotional turmoil is common in Heian literature, where the sentiments of love and loss are profoundly expressed. 
 
-   The relevant portion states, *「長年親しくしてきた人たちは、別れるのがつらくて、その日もしきりにあれこれ話しながら賑やかに過ごしているうちに、夜が更けてしまった。」* ("Those who had been close for years found it hard to say goodbye, and as they chatted and bustled about that day, night quietly crept up on them.")
+     The relevant portion states, *「長年親しくしてきた人たちは、別れるのがつらくて、その日もしきりにあれこれ話しながら賑やかに過ごしているうちに、夜が更けてしまった。」* ("Those who had been close for years found it hard to say goodbye, and as they chatted and bustled about that day, night quietly crept up on them.")
 
-2. **Social Gathering and Poetry**:
-   In Context 1 (ID: 38), the gathering involved drinking sake and engaging in poetry—a customary practice among the Heian aristocracy. The act of composing poetry as a shared activity emphasizes the cultural importance of artistic expression in times of emotional significance. The text notes, *「かく別れ難くいひて、かの人々の口網ももろもちにてこの海邊にて荷ひいだせる歌、」* ("As they said it was hard to part, the people carried their fishing net together and composed a poem by the seaside.")
-
-3. **Symbolism of the Seaside**:
-   The setting near the sea is significant in Heian literature, often symbolizing both a barrier and a connection to the past. In these farewells, the sea can represent the separation that is now imminent. The emotional and physical distance implied by the sea serves as a potent backdrop to the feelings of loss, accentuated in lines that suggest an ongoing sense of longing and remembrance.
-
-4. **Expressions of Care and Sincerity**:
-   The sincerity shown by those present is also notable, as it reflects the social norms of loyalty
+  2. **Social Gathering and Poetry**:
+     In Context 1 (ID: 38), the gathering involved drinking sake and engaging in poetry—a customary practice among the Heian aristocracy. The act of composing poetry as a shared activity emphasizes the cultural importance of artistic expression in times of emotional significance. The text notes, *「かく別れ難くいひて、かの人々の口網ももろもちにてこの海邊にて荷ひいだせる歌、」* ("As they said it was hard to part, the people carried their fishing net together and composed a poem by the seaside.")
 #+end_example
 
 *** Without retrieval 検索なしの場合
@@ -268,17 +263,17 @@ In the Tosa Nikki (土佐日記), specifically in the context retrieved regardin
 #+end_src
 
 #+begin_example
-『土佐日記』には、いくつかの食べ物が描かれています。以下に具体的な例を挙げます。
+  『土佐日記』には、いくつかの食べ物が描かれています。以下に具体的な例を挙げます。
 
-1. **押鮎（おしあゆ）** - 第4の文脈（Context 4）では、「唯おしあゆの口をのみぞ吸ふ」という表現があります。これは、押鮎という特別な調理法で魚を保存したものを示しており、当時の人々がこれを食べていたことがわかります。
+  1. **押鮎（おしあゆ）** - 第4の文脈（Context 4）では、「唯おしあゆの口をのみぞ吸ふ」という表現があります。これは、押鮎という特別な調理法で魚を保存したものを示しており、当時の人々がこれを食べていたことがわかります。
 
-2. **酒** - 第7の文脈（Context 7）では、藤原の時実や橘の季衡らが「酒やけっこな品々を持ってきて、船に差し入れをした」と記されています。これにより、当時の飲酒文化や宴会の様子が浮かび上がります。
+  2. **酒** - 第7の文脈（Context 7）では、藤原の時実や橘の季衡らが「酒やけっこな品々を持ってきて、船に差し入れをした」と記されています。これにより、当時の飲酒文化や宴会の様子が浮かび上がります。
 
-3. **米** - 同じく第7の文脈において、「米を以って、返礼する」とあるように、米もまた重要な食材として語られています。人々は食べ物に感謝し、物々交換の一環として米を用いています。
+  3. **米** - 同じく第7の文脈において、「米を以って、返礼する」とあるように、米もまた重要な食材として語られています。人々は食べ物に感謝し、物々交換の一環として米を用いています。
 
-これらの記述から、当時の人々が食べていた食材やその食文化についての理解を深めることができます。また、これらの食べ物は、季節や行事に応じた祭りや祝いの際に消費されていたことも考えられます。
+  これらの記述から、当時の人々が食べていた食材やその食文化についての理解を深めることができます。また、これらの食べ物は、季節や行事に応じた祭りや祝いの際に消費されていたことも考えられます。
 
-全体として、『土佐日記』は、酒や魚、米といった食材を通じて、日常生活や食文化を描写していることがわかります。
+  全体として、『土佐日記』は、酒や魚、米といった食材を通じて、日常生活や食文化を描写していることがわかります。
 #+end_example
 
 ** Alternative DEMO using LangChain LangChainを使った別のデモ
